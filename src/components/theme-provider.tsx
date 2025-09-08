@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { createContext, useContext, useEffect, useState } from "react"
 
 type Theme = "light" | "dark" | "gold"
@@ -30,28 +29,34 @@ export function ThemeProvider({
   storageKey = "vite-ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(() => (localStorage?.getItem(storageKey) as Theme) || defaultTheme)
+  const [theme, setThemeState] = useState<Theme>(defaultTheme)
 
+  // Load theme from localStorage after component mounts
+  useEffect(() => {
+    const savedTheme = typeof window !== "undefined" ? localStorage.getItem(storageKey) as Theme : null
+    if (savedTheme) {
+      setThemeState(savedTheme)
+    }
+  }, [storageKey])
+
+  // Apply theme to document root
   useEffect(() => {
     const root = window.document.documentElement
-
     root.classList.remove("light", "dark", "gold")
 
-    if (theme === "dark") {
-      root.classList.add("dark")
-    } else if (theme === "light") {
-      root.classList.add("light")
-    } else if (theme === "gold") {
-      root.classList.add("gold")
-    }
+    root.classList.add(theme)
   }, [theme])
+
+  const setTheme = (newTheme: Theme) => {
+    setThemeState(newTheme)
+    if (typeof window !== "undefined") {
+      localStorage.setItem(storageKey, newTheme)
+    }
+  }
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
-      localStorage?.setItem(storageKey, theme)
-      setTheme(theme)
-    },
+    setTheme,
   }
 
   return (
@@ -63,8 +68,8 @@ export function ThemeProvider({
 
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext)
-
-  if (context === undefined) throw new Error("useTheme must be used within a ThemeProvider")
-
+  if (!context) {
+    throw new Error("useTheme must be used within a ThemeProvider")
+  }
   return context
 }
