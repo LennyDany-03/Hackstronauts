@@ -6,7 +6,7 @@ import { PricingSection } from "@/components/pricing-section"
 import { AboutSection } from "@/components/about-section"
 import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
-import { supabase } from "@/lib/supabaseClient"
+import { supabase } from "@/lib/supabase/client"
 
 export default function Home() {
 
