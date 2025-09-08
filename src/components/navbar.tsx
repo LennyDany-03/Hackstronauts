@@ -122,7 +122,7 @@ export function Navbar() {
             </DropdownMenu>
 
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <a href={"/login"}>
+              <a href={"/auth/login"}>
                 <Button className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg">
                   Get Started
                 </Button>
@@ -198,9 +198,11 @@ export function Navbar() {
                   transition={{ delay: navItems.length * 0.1 }}
                   className="pt-2"
                 >
-                  <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                    Get Started
-                  </Button>
+                  <a href={"/auth/login"}>
+                    <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg">
+                      Get Started
+                    </Button>
+                  </a>
                 </motion.div>
               </div>
             </motion.div>
