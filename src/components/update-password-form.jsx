@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { Lock, Eye, EyeOff, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { supabase } from "@/lib/supabase/client"
+import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -20,6 +20,7 @@ export function UpdatePasswordForm({ className, ...props }) {
 
   const handleUpdatePassword = async (e) => {
     e.preventDefault()
+    const supabase = createClient()
     setIsLoading(true)
     setError(null)
 
@@ -39,10 +40,10 @@ export function UpdatePasswordForm({ className, ...props }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.2 }}
-      className={cn("flex justify-center items-center", className)}
+      className={cn("", className)}
       {...props}
     >
-      <Card className="glass-card max-w-md mx-auto p-6 rounded-lg shadow-xl">
+      <Card className="glass-card">
         <CardHeader className="space-y-1 pb-6 text-center">
           <motion.div
             initial={{ scale: 0 }}
@@ -52,7 +53,7 @@ export function UpdatePasswordForm({ className, ...props }) {
           >
             <Lock className="w-8 h-8 text-primary" />
           </motion.div>
-          <CardTitle className="text-2xl font-bold text-foreground">Reset Your Password</CardTitle>
+          <CardTitle className="text-2xl font-bold">Reset Your Password</CardTitle>
           <p className="text-muted-foreground">Please enter your new password below.</p>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -60,12 +61,12 @@ export function UpdatePasswordForm({ className, ...props }) {
             <div className="space-y-2">
               <Label htmlFor="password">New password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your new password"
-                  className="glass bg-input/50 border-border/50 focus:border-primary/50 pl-10 pr-10 rounded-lg"
+                  className="glass bg-input/50 border-border/50 focus:border-primary/50 pl-10 pr-10"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -75,7 +76,7 @@ export function UpdatePasswordForm({ className, ...props }) {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
             </div>

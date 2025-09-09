@@ -11,6 +11,7 @@ import { Progress } from "@/components/ui/progress"
 import { MultiStepLoader } from "@/components/multi-step-loader"
 import { ArrowRight, ArrowLeft, Code, Database, Cpu, Globe } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { createClient } from "@/lib/supabase/client"
 
 interface FormData {
   name: string
@@ -116,19 +117,47 @@ export default function OnboardingClient() {
   const handleSubmit = async () => {
     setIsLoading(true)
 
-    // Simulate API call to create course
-    // In real implementation, you would:
-    // 1. Save user data to Supabase
-    // 2. Create course record
-    // 3. Get course ID
-    // 4. Redirect to course page
+    try {
+      const supabase = createClient()
 
-    // For demo, we'll simulate with a timeout
-    setTimeout(() => {
-      // Simulate course ID (in real app, this would come from Supabase)
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser()
+
+      if (userError || !user) {
+        throw new Error("User not authenticated")
+      }
+
       const courseId = `${formData.selectedLanguage}-${formData.experienceLevel}-${Date.now()}`
-      router.push(`./course/python-basics`)
-    }, 6000)
+
+      const { data, error } = await supabase
+        .from("onboarding")
+        .insert({
+          user_id: user.id,
+          name: formData.name,
+          date_of_birth: formData.dateOfBirth,
+          hobbies: formData.hobbies,
+          topics_interested: formData.topicsInterested,
+          selected_language: formData.selectedLanguage,
+          experience_level: formData.experienceLevel,
+          course_id: courseId,
+        })
+        .select()
+        .single()
+
+      if (error) {
+        throw error
+      }
+
+      setTimeout(() => {
+        router.push(`/course/python-basics`)
+      }, 6000)
+    } catch (error) {
+      console.error("Error saving onboarding data:", error)
+      setIsLoading(false)
+      // You might want to show an error message to the user here
+    }
   }
 
   const canProceedStep1 = formData.name && formData.dateOfBirth && formData.hobbies && formData.topicsInterested
