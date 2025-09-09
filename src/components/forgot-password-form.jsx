@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { Mail, ArrowLeft, CheckCircle, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { supabase } from "@/lib/supabase/client"  // Correct import for the existing supabase client
+import { supabase } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -19,7 +19,6 @@ export function ForgotPasswordForm({ className, ...props }) {
 
   const handleForgotPassword = async (e) => {
     e.preventDefault()
-    const supabase = supabase()
     setIsLoading(true)
     setError(null)
 
@@ -41,11 +40,11 @@ export function ForgotPasswordForm({ className, ...props }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.2 }}
-      className={cn("", className)}
+      className={cn("flex justify-center items-center", className)}
       {...props}
     >
       {success ? (
-        <Card className="glass-card">
+        <Card className="glass-card max-w-md mx-auto p-6 rounded-lg shadow-xl">
           <CardHeader className="space-y-1 pb-6 text-center">
             <motion.div
               initial={{ scale: 0 }}
@@ -55,7 +54,7 @@ export function ForgotPasswordForm({ className, ...props }) {
             >
               <CheckCircle className="w-8 h-8 text-green-500" />
             </motion.div>
-            <CardTitle className="text-2xl font-bold">Check Your Email</CardTitle>
+            <CardTitle className="text-2xl font-bold text-foreground">Check Your Email</CardTitle>
             <p className="text-muted-foreground">Password reset instructions sent</p>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -74,7 +73,7 @@ export function ForgotPasswordForm({ className, ...props }) {
           </CardContent>
         </Card>
       ) : (
-        <Card className="glass-card">
+        <Card className="glass-card max-w-md mx-auto p-6 rounded-lg shadow-xl">
           <CardHeader className="space-y-1 pb-6 text-center">
             <motion.div
               initial={{ scale: 0 }}
@@ -84,7 +83,7 @@ export function ForgotPasswordForm({ className, ...props }) {
             >
               <Mail className="w-8 h-8 text-primary" />
             </motion.div>
-            <CardTitle className="text-2xl font-bold">Reset Your Password</CardTitle>
+            <CardTitle className="text-2xl font-bold text-foreground">Reset Your Password</CardTitle>
             <p className="text-muted-foreground">Type in your email and we'll send you a link to reset your password</p>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -92,12 +91,12 @@ export function ForgotPasswordForm({ className, ...props }) {
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
                   <Input
                     id="email"
                     type="email"
                     placeholder="Enter your email"
-                    className="glass bg-input/50 border-border/50 focus:border-primary/50 pl-10"
+                    className="glass bg-input/50 border-border/50 focus:border-primary/50 pl-10 rounded-lg"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required

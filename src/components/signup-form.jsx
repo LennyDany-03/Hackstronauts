@@ -27,7 +27,6 @@ export function SignUpForm() {
 
   const handleSignUp = async (e) => {
     e.preventDefault()
-    const supabase = supabase()
     setIsLoading(true)
     setError(null)
 
@@ -61,7 +60,6 @@ export function SignUpForm() {
   }
 
   const handleGoogleSignUp = async () => {
-    const supabase = supabase()
     setIsGoogleLoading(true)
     setError(null)
 
@@ -85,7 +83,6 @@ export function SignUpForm() {
   }
 
   const handleFacebookSignUp = async () => {
-    const supabase = supabase()
     setIsGoogleLoading(true)
     setError(null)
 
@@ -114,9 +111,9 @@ export function SignUpForm() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.2 }}
     >
-      <Card className="glass-card">
+      <Card className="glass-card max-w-lg mx-auto p-6 rounded-lg shadow-xl">
         <CardHeader className="space-y-1 pb-6">
-          <CardTitle className="text-2xl font-bold text-center">Create Account</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center text-foreground">Create Account</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <form onSubmit={handleSignUp} className="space-y-4">
@@ -124,12 +121,12 @@ export function SignUpForm() {
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
                 <Input
                   id="email"
                   type="email"
                   placeholder="Enter your email"
-                  className="glass bg-input/50 border-border/50 focus:border-primary/50 pl-10"
+                  className="glass bg-input/50 border-border/50 focus:border-primary/50 pl-10 rounded-lg"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -141,12 +138,12 @@ export function SignUpForm() {
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a password"
-                  className="glass bg-input/50 border-border/50 focus:border-primary/50 pl-10 pr-10"
+                  className="glass bg-input/50 border-border/50 focus:border-primary/50 pl-10 pr-10 rounded-lg"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -156,7 +153,7 @@ export function SignUpForm() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
             </div>
@@ -165,12 +162,12 @@ export function SignUpForm() {
             <div className="space-y-2">
               <Label htmlFor="repeat-password">Confirm Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
                 <Input
                   id="repeat-password"
                   type={showRepeatPassword ? "text" : "password"}
                   placeholder="Confirm your password"
-                  className="glass bg-input/50 border-border/50 focus:border-primary/50 pl-10 pr-10"
+                  className="glass bg-input/50 border-border/50 focus:border-primary/50 pl-10 pr-10 rounded-lg"
                   value={repeatPassword}
                   onChange={(e) => setRepeatPassword(e.target.value)}
                   required
@@ -180,7 +177,7 @@ export function SignUpForm() {
                   onClick={() => setShowRepeatPassword(!showRepeatPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  {showRepeatPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  {showRepeatPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
             </div>
@@ -215,7 +212,7 @@ export function SignUpForm() {
                 disabled={isLoading || isGoogleLoading}
               >
                 {isLoading ? "Creating Account..." : "Create Account"}
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </motion.div>
           </form>
@@ -239,7 +236,7 @@ export function SignUpForm() {
               disabled={isLoading || isGoogleLoading}
               type="button"
             >
-              <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
+              <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
                 <path
                   fill="currentColor"
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -266,7 +263,7 @@ export function SignUpForm() {
               disabled={isLoading || isGoogleLoading}
               type="button"
             >
-              <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
               </svg>
               Facebook
