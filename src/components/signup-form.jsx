@@ -10,7 +10,8 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { createClient } from "@/lib/supabase/client"
+import { supabase } from "@/lib/supabase/client"  // Correct import for the existing supabase client
+
 
 export function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false)
@@ -26,7 +27,7 @@ export function SignUpForm() {
 
   const handleSignUp = async (e) => {
     e.preventDefault()
-    const supabase = createClient()
+    const supabase = supabase()
     setIsLoading(true)
     setError(null)
 
@@ -60,7 +61,7 @@ export function SignUpForm() {
   }
 
   const handleGoogleSignUp = async () => {
-    const supabase = createClient()
+    const supabase = supabase()
     setIsGoogleLoading(true)
     setError(null)
 
@@ -84,7 +85,7 @@ export function SignUpForm() {
   }
 
   const handleFacebookSignUp = async () => {
-    const supabase = createClient()
+    const supabase = supabase()
     setIsGoogleLoading(true)
     setError(null)
 

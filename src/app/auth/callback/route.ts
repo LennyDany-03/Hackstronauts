@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
       {
         cookies: {
           get(name: string) {
-            return cookieStore.get(name)?.value
+            return cookieStore.get(name)?.value 
           },
           set(name: string, value: string, options: any) {
             cookieStore.set({ name, value, ...options })

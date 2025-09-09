@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { Mail, ArrowLeft, CheckCircle, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { createClient } from "@/lib/supabase/client"
+import { supabase } from "@/lib/supabase/client"  // Correct import for the existing supabase client
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -19,7 +19,7 @@ export function ForgotPasswordForm({ className, ...props }) {
 
   const handleForgotPassword = async (e) => {
     e.preventDefault()
-    const supabase = createClient()
+    const supabase = supabase()
     setIsLoading(true)
     setError(null)
 

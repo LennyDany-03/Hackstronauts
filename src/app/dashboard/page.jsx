@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 
 export default function DashboardPage() {
-  const [user, setUser] = useState<any>(null)
-  const [profile, setProfile] = useState<any>(null)
+  const [user, setUser] = useState(null)
+  const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
