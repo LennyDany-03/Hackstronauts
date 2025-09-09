@@ -127,7 +127,7 @@ export default function OnboardingClient() {
     setTimeout(() => {
       // Simulate course ID (in real app, this would come from Supabase)
       const courseId = `${formData.selectedLanguage}-${formData.experienceLevel}-${Date.now()}`
-      router.push(`/${courseId}/courses`)
+      router.push(`./course/python-basics`)
     }, 6000)
   }
 
