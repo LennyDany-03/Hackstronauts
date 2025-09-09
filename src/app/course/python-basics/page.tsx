@@ -2,10 +2,23 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { CheckCircle, Lock, Play, Star, Trophy, Code, BookOpen, Zap } from "lucide-react"
+import {
+  CheckCircle,
+  Lock,
+  Play,
+  Star,
+  Trophy,
+  Code,
+  BookOpen,
+  Zap,
+  MessageCircle,
+  Users,
+  Sparkles,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
+import { useRouter } from "next/navigation"
 
 interface Stage {
   id: number
@@ -87,6 +100,8 @@ export default function PythonBasicCourse() {
   const [userProgress, setUserProgress] = useState(0)
   const [totalLessons, setTotalLessons] = useState(0)
   const [completedLessons, setCompletedLessons] = useState(0)
+  const [isHovering, setIsHovering] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     const total = pythonStages.reduce((acc, stage) => acc + stage.lessons, 0)
@@ -250,7 +265,6 @@ export default function PythonBasicCourse() {
           </div>
         </div>
       </div>
-
       {/* Course Path */}
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-2xl mx-auto">
@@ -267,6 +281,102 @@ export default function PythonBasicCourse() {
               <StageNode key={stage.id} stage={stage} index={index} />
             ))}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="mt-16 mb-12"
+          >
+            <div className="glass-card p-8 relative overflow-hidden">
+              {/* Background decoration */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
+              <div className="absolute top-4 right-4 opacity-10">
+                <Sparkles className="w-16 h-16 text-primary" />
+              </div>
+
+              <div className="relative z-10">
+                <div className="flex items-center justify-center mb-6">
+                  <motion.div
+                    animate={{
+                      scale: isHovering ? 1.1 : 1,
+                      rotate: isHovering ? 5 : 0,
+                    }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="p-4 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 border-2 border-primary/30"
+                  >
+                    <Users className="w-8 h-8 text-primary" />
+                  </motion.div>
+                </div>
+
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl font-bold text-foreground mb-3">Stuck on Something?</h3>
+                  <p className="text-muted-foreground text-lg mb-2">
+                    Don't worry! Get instant help from your AI learning companion
+                  </p>
+                  <div className="flex items-center justify-center gap-2 text-sm text-primary/80">
+                    <MessageCircle className="w-4 h-4" />
+                    <span>Available 24/7 • Personalized Help • Interactive Learning</span>
+                  </div>
+                </div>
+
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onHoverStart={() => setIsHovering(true)}
+                  onHoverEnd={() => setIsHovering(false)}
+                >
+                  <Button
+                    onClick={() => router.push("/llmchatbot")}
+                    size="lg"
+                    className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
+                  >
+                    {/* Button shine effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+
+                    <motion.div animate={{ x: isHovering ? 5 : 0 }} className="flex items-center gap-3">
+                      <MessageCircle className="w-6 h-6" />
+                      <span>Clear Your Doubt with Your Friend</span>
+                      <motion.div animate={{ x: isHovering ? 3 : 0 }} transition={{ type: "spring", stiffness: 400 }}>
+                        <Sparkles className="w-5 h-5" />
+                      </motion.div>
+                    </motion.div>
+                  </Button>
+                </motion.div>
+
+                {/* Feature highlights */}
+                <div className="grid grid-cols-3 gap-4 mt-6 text-center">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 }}
+                    className="p-3 rounded-lg bg-primary/5 border border-primary/20"
+                  >
+                    <Code className="w-5 h-5 text-primary mx-auto mb-1" />
+                    <p className="text-xs text-muted-foreground">Code Help</p>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.9 }}
+                    className="p-3 rounded-lg bg-secondary/5 border border-secondary/20"
+                  >
+                    <BookOpen className="w-5 h-5 text-secondary mx-auto mb-1" />
+                    <p className="text-xs text-muted-foreground">Concept Clarity</p>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.0 }}
+                    className="p-3 rounded-lg bg-primary/5 border border-primary/20"
+                  >
+                    <Zap className="w-5 h-5 text-primary mx-auto mb-1" />
+                    <p className="text-xs text-muted-foreground">Quick Solutions</p>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
           {/* Completion Message */}
           <motion.div
